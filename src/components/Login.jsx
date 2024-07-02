@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserDataContext } from './context/userDataContext';
 import { Navigate, redirect, useNavigate } from 'react-router-dom';
 
@@ -8,22 +8,26 @@ let inputFieldStyle = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm r
 function Login() {
   const {isAuth, setIsAuth, user, setUser} = useContext(UserDataContext)
   const navigate = useNavigate()
+  if(localStorage.getItem('isAuthToken')){
+    console.log('first')
+    navigate('home')
+  }
   const handlInputChange = (e) => {
     setUser(e.target.value)
   }
   const handleAuth = () => {
     if(user){
-      setIsAuth(!isAuth)
+      console.log('handlAuth is clicking')
+      setIsAuth(true)
+      localStorage.setItem('isAuthToken', true)
       // navigate('/home',{replace:true})
       navigate('/home', { replace: true });
     }else{
       alert('Enter Valid deatail')
     }
   }
-  if(isAuth){
-    return redirect('/home')
-  }
 
+  
   return (
     <div className='w-2/3 h-2/3 m-auto mt-10 flex justify-center bg-slate-200 rounded-3xl'>
       <div className='flex flex-col justify-center items-center gap-10'>

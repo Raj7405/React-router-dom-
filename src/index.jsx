@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider} from 'react-router-dom' 
 import BigSpinner from './components/utilities/BigSpinner.jsx'
-import { router } from './components/Router.jsx'
+import { delayTime } from './components/function/delay.js'
+import { ErrorBoundary } from 'react-error-boundary'
+import { BrowserRouter } from 'react-router-dom'
+// import App from './App.jsx'
+
+const App = lazy(() => delayTime(import('./App.jsx')))  
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
+    <ErrorBoundary fallback={<div>SoMetTing WeNT wROng!</div>}>
+      <Suspense fallback={<BigSpinner/>}>
+        <App/>
+      </Suspense>
+    </ErrorBoundary>
   </React.StrictMode>
 )

@@ -1,8 +1,10 @@
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, lazy, useMemo, useState } from "react";
 import { Outlet, useLoaderData, useOutletContext, useParams } from "react-router-dom";
 import CardComponent from "../utilities/Card";
 import Error403 from "../Error403";
 import BigSpinner from "../utilities/BigSpinner";
+
+// const CardComponent = lazy(() => import('../utilities/Card') )
 function Details() { 
     const userData = useLoaderData()
     const data = useMemo(()=>{

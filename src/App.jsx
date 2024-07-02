@@ -1,27 +1,34 @@
-import { createContext, useState , useContext} from 'react'
-import NavBar from './components/NavBar'
-import Footer from './components/Footer'
-import { Outlet,useLocation } from 'react-router-dom'
-import Login from './components/Login'
+import React, { createContext, useState , useContext, useEffect} from 'react'
 import { UserDataContext } from './components/context/userDataContext'
+import Root from './components/Root'
+import { router } from './components/Router'
+import BigSpinner from './components/utilities/BigSpinner'
+import { RouterProvider, useLocation } from 'react-router-dom'
+import { route2 } from './components/Routers'
+// import { LocationProvider, useCustomLocation } from './components/context/LocationContext'
+
 
 function App() {
-  const [isAuth, setIsAuth] = useState(null)
-  const [user, setUser] = useState(null)
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuthToken') || false)
+  const [user, setUser] = useState('')
+  // const location = useCustomLocation();
+  console.log(typeof localStorage.getItem('isAuthToken'))
+  // console.log('location', location)
+const logedIn = ['login','signup']
+// useEffect(() => {
+ 
+//   console.log('first', location?.pathname)
+// }, [location?.pathname])
+
 
   return (
-    <div className='relative h-screen'>
-        <UserDataContext.Provider value={{isAuth, setIsAuth, user, setUser}}>
-          <NavBar /> 
-          <main className='relative tesxt-center w-2/3 h-5/6  min-h-20 m-auto pt-5 bg-gray-100 '>
-            {!isAuth && <h1 className="w-3/5 m-auto text-center h-fit text-5xl font-bold align-middle ">Welcome to React Route V6 Demo</h1>}
-            <Outlet />
-          </main>
-          <Footer/>
-        </UserDataContext.Provider>
-    </div>
+       <UserDataContext.Provider value={{isAuth, setIsAuth, user, setUser}}>
+          {/* <LocationProvider> */}
+          <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
+          {/* </LocationProvider> */}
+       </UserDataContext.Provider>
   )
 }
 
-export default App
+export default React  .memo(App)
 // export { AuthContext, useAuth, useUserData };
