@@ -13,16 +13,15 @@ function Login() {
   }
   const handleAuth = () => {
     if(user){
-      setIsAuth(!isAuth)
-      // navigate('/home',{replace:true})
+      console.log('handle Auth is calling from login')
+      setIsAuth(true)
+      localStorage.setItem('isAuthToken',true)
+
       navigate('/home', { replace: true });
     }else{
       alert('Enter Valid deatail')
     }
   }
-  // if(isAuth){
-  //   return redirect('/home')
-  // }
 
   return (
     <div className='w-2/3 h-2/3 m-auto mt-10 flex justify-center bg-slate-200 rounded-3xl'>
@@ -35,6 +34,7 @@ function Login() {
           placeholder='User Name'
           required
         />
+
         <button className={btnStyle} onClick={handleAuth}>Login</button>
       </div>
     </div>

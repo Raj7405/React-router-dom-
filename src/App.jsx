@@ -1,13 +1,23 @@
-import { createContext, useState , useContext} from 'react'
+import { createContext, useState , useContext, useEffect} from 'react'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import { Outlet,useLocation } from 'react-router-dom'
+import { Outlet,useLocation, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import { UserDataContext } from './components/context/userDataContext'
 
 function App() {
-  const [isAuth, setIsAuth] = useState(null)
+  const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('isAuthToken')) || false) //this was reason behind unexpected bhaviour of ternary operator
   const [user, setUser] = useState(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+  // console.log(localStorage.getItem('isAuthToken'))
+  useEffect(() => {
+    if(location.pathname.includes('login') && isAuth){
+      console.log('useEffect of app', isAuth)
+      navigate('home')
+    }
+    console.log('path name include login', location.pathname.includes('login'))
+  },[location.pathname])
 
   return (
     <div className='relative h-screen'>

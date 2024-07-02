@@ -6,7 +6,7 @@ import BigSpinner from './components/utilities/BigSpinner.jsx'
 import { router } from './components/Router.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

@@ -4,16 +4,12 @@ import { UserDataContext } from './context/userDataContext'
 
 function ProtectedRoute() {
     const {isAuth} = useContext(UserDataContext)
-    console.log("Protected route",isAuth)
-    if(!isAuth){
-        console.log("msdmfk")
-        return <Navigate to='/' replace/>   
+
+    if(!localStorage.getItem('isAuthToken')){
+        console.log('protected route', isAuth)
+        return <Navigate to='login' replace/>   
     }
-    return (
-        <>
-        <Outlet/>
-        </>
-    )
+    return <Outlet/>
 }
 
 export default ProtectedRoute
