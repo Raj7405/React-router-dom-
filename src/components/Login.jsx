@@ -20,9 +20,9 @@ function Login() {
       alert('Enter Valid deatail')
     }
   }
-  if(isAuth){
-    return redirect('/home')
-  }
+  // if(isAuth){
+  //   return redirect('/home')
+  // }
 
   return (
     <div className='w-2/3 h-2/3 m-auto mt-10 flex justify-center bg-slate-200 rounded-3xl'>
